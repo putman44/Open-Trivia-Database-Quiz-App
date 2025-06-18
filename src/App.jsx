@@ -15,7 +15,6 @@ function App() {
     difficulty: "easy",
   });
   const [userAnswers, setUserAnswers] = useState({});
-  const [correctAnswers, setCorrectAnswers] = useState();
   const [questions, setQuestions] = useState();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -26,12 +25,6 @@ function App() {
       inputData.selectedCategory,
       inputData.difficulty
     );
-
-    const correctAnswers = data.results.map((answer) => {
-      return answer.correct_answer;
-    });
-
-    setCorrectAnswers(correctAnswers);
 
     const shuffledAnswers = {
       ...data,
