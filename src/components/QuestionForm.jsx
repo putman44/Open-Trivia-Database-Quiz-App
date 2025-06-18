@@ -1,4 +1,5 @@
 import { decodeHtml } from "../utils/functions";
+import styles from "./QuestionForm.module.css";
 
 const QuestionForm = ({ questions, setUserAnswers, onComplete }) => {
   const handleSelectAnswer = (questionIndex, selectedAnswer) => {
@@ -14,27 +15,29 @@ const QuestionForm = ({ questions, setUserAnswers, onComplete }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <ul className={styles.ul}>
         {questions.results.map((item, index) => (
           <li key={index}>
             <p>{decodeHtml(item.question)}</p>
-            {item.shuffledAnswers.map((answer) => {
-              const id = `${index}-${answer}`;
-              return (
-                <div key={id}>
-                  <input
-                    required
-                    type="radio"
-                    id={id}
-                    name={`question-${index}`} // Group by question
-                    value={answer}
-                    onChange={() => handleSelectAnswer(index, answer)}
-                  />
-                  <label htmlFor={id}>{decodeHtml(answer)}</label>
-                </div>
-              );
-            })}
+            <div className={styles.answers}>
+              {item.shuffledAnswers.map((answer) => {
+                const id = `${index}-${answer}`;
+                return (
+                  <div className={styles.answer} key={id}>
+                    <input
+                      required
+                      type="radio"
+                      id={id}
+                      name={`question-${index}`} // Group by question
+                      value={answer}
+                      onChange={() => handleSelectAnswer(index, answer)}
+                    />
+                    <label htmlFor={id}>{decodeHtml(answer)}</label>
+                  </div>
+                );
+              })}
+            </div>
           </li>
         ))}
       </ul>
