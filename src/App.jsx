@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { getQuestions } from "./utils/TriviaApi";
+import { getQuestions, getSessionToken } from "./utils/TriviaApi";
 import QuestionForm from "./components/QuestionForm";
 import Results from "./components/Results";
 
@@ -70,6 +70,7 @@ function App() {
 
       setCategoryData(data);
     };
+    getSessionToken();
     fetchData();
   }, []);
 

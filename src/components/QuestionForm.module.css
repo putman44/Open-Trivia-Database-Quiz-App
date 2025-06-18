@@ -17,7 +17,9 @@
 
 .answer label {
   width: 100%;
-  text-align: start;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .form {
