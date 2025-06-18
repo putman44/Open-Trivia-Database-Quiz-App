@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { getQuestions } from "./utils/TriviaApi";
 import QuestionForm from "./components/QuestionForm";
+import Results from "./components/Results";
 
 // Utility function to shuffle an array (Fisher-Yates-style randomness)
 const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
@@ -13,10 +14,11 @@ function App() {
     selectedCategory: 9,
     difficulty: "easy",
   });
-  const [answers, setAnswers] = useState({});
+  const [userAnswers, setUserAnswers] = useState({});
   const [correctAnswers, setCorrectAnswers] = useState();
   const [questions, setQuestions] = useState();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -81,6 +83,7 @@ function App() {
   return (
     <>
       {!isSubmitted ? (
+        // Show the form if quiz hasn't started yet
         <>
           <h1>Welcome to the Trivia Quiz App</h1>
           <form onSubmit={handleSubmit} action="">
@@ -120,8 +123,16 @@ function App() {
             <button type="submit">Submit</button>
           </form>
         </>
+      ) : showResults ? (
+        // ✅ Show results after user submits answers
+        <Results questions={questions} userAnswers={userAnswers} />
       ) : (
-        <QuestionForm setAnswers={setAnswers} questions={questions} />
+        // Show the questions if quiz has started
+        <QuestionForm
+          onComplete={() => setShowResults(true)}
+          setUserAnswers={setUserAnswers}
+          questions={questions}
+        />
       )}
     </>
   );

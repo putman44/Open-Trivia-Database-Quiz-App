@@ -1,22 +1,21 @@
 import { useState } from "react";
+import { decodeHtml } from "../utils/functions";
 
-const QuestionForm = ({ questions, setAnswers }) => {
+const QuestionForm = ({ questions, setUserAnswers, onComplete }) => {
   const handleSelectAnswer = (questionIndex, selectedAnswer) => {
-    setAnswers((prev) => ({
+    setUserAnswers((prev) => ({
       ...prev,
       [questionIndex]: selectedAnswer,
     }));
   };
 
-  // Utility to decode HTML entities to plain text
-  const decodeHtml = (html) => {
-    const txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    return txt.value;
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onComplete();
   };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <ul>
         {questions.results.map((item, index) => (
           <li key={index}>
@@ -40,6 +39,7 @@ const QuestionForm = ({ questions, setAnswers }) => {
           </li>
         ))}
       </ul>
+      <button type="submit">Submit</button>
     </form>
   );
 };
