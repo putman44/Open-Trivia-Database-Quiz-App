@@ -13,6 +13,8 @@ function App() {
     selectedCategory: 9,
     difficulty: "easy",
   });
+  const [answers, setAnswers] = useState({});
+  const [correctAnswers, setCorrectAnswers] = useState();
   const [questions, setQuestions] = useState();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -22,6 +24,12 @@ function App() {
       inputData.selectedCategory,
       inputData.difficulty
     );
+
+    const correctAnswers = data.results.map((answer) => {
+      return answer.correct_answer;
+    });
+
+    setCorrectAnswers(correctAnswers);
 
     const shuffledAnswers = {
       ...data,
@@ -113,7 +121,7 @@ function App() {
           </form>
         </>
       ) : (
-        <QuestionForm questions={questions} />
+        <QuestionForm setAnswers={setAnswers} questions={questions} />
       )}
     </>
   );

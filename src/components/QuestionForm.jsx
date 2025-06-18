@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-const QuestionForm = ({ questions }) => {
-  const [answers, setAnswers] = useState({});
-
+const QuestionForm = ({ questions, setAnswers }) => {
   const handleSelectAnswer = (questionIndex, selectedAnswer) => {
     setAnswers((prev) => ({
       ...prev,
