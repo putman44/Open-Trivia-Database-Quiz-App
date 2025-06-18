@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { getQuestions, getSessionToken } from "./utils/TriviaApi";
 
 function App() {
   const [categoryData, setCategoryData] = useState();
@@ -8,6 +9,16 @@ function App() {
     selectedCategory: 9,
     difficulty: "easy",
   });
+  const [questions, setQuestions] = useState();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const questions = await getQuestions(
+      inputData.selectedCategory,
+      inputData.difficulty
+    );
+    setQuestions(questions);
+  };
 
   const handleNameChange = (event) => {
     setInputData((prev) => ({
@@ -44,7 +55,7 @@ function App() {
   return (
     <>
       <h1>Welcome to the Trivia Quiz App</h1>
-      <form action="">
+      <form onSubmit={handleSubmit} action="">
         <label htmlFor="name">
           Enter your first name
           <input onChange={handleNameChange} required id="name" type="text" />
