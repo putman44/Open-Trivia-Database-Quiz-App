@@ -13,7 +13,7 @@ export const getSessionToken = async () => {
 export const getQuestions = async (category, difficulty) => {
   await getSessionToken();
   const response = await fetch(
-    `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&token=${TOKEN}`
+    `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple&token=${TOKEN}`
   );
 
   const data = await response.json();
