@@ -80,8 +80,8 @@ function App() {
         <>
           <h1>Welcome to the Trivia Quiz App</h1>
           <form onSubmit={handleSubmit} action="">
-            <label htmlFor="name">
-              Enter your first name
+            <label id="name" htmlFor="name">
+              Enter your name
               <input
                 onChange={handleNameChange}
                 required
@@ -90,6 +90,7 @@ function App() {
                 value={inputData.userName}
               />
             </label>
+            <label htmlFor="">Choose Category</label>
             <select
               required
               onChange={handleCategoryChange}
@@ -99,11 +100,15 @@ function App() {
               {categoryData &&
                 categoryData.trivia_categories &&
                 categoryData.trivia_categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
+                  <>
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  </>
                 ))}
             </select>
+            <label htmlFor="">Choose Difficulty</label>
+
             <select
               onChange={handleDifficultyChange}
               required
