@@ -3,6 +3,9 @@ import "./App.css";
 import { getQuestions } from "./utils/TriviaApi";
 import QuestionForm from "./components/QuestionForm";
 
+// Utility function to shuffle an array (Fisher-Yates-style randomness)
+const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
+
 function App() {
   const [categoryData, setCategoryData] = useState();
   const [inputData, setInputData] = useState({
@@ -15,11 +18,23 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const questions = await getQuestions(
+    const data = await getQuestions(
       inputData.selectedCategory,
       inputData.difficulty
     );
-    setQuestions(questions);
+
+    const shuffledAnswers = {
+      ...data,
+      results: data.results.map((q) => ({
+        ...q,
+        shuffledAnswers: shuffleArray([
+          q.correct_answer,
+          ...q.incorrect_answers,
+        ]),
+      })),
+    };
+
+    setQuestions(shuffledAnswers);
     setIsSubmitted(true);
   };
 

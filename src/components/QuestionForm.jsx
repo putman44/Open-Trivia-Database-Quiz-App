@@ -1,54 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-// Utility function to shuffle an array (Fisher-Yates-style randomness)
-const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
-
-// This component receives 'questions' as a prop, expected to come from the API
 const QuestionForm = ({ questions }) => {
-  // Early return while data is loading or unavailable
-  if (!questions?.results) return <p>Loading...</p>;
-
+  const [answers, setAnswers] = useState({});
   return (
-    <div>
+    <form>
       <ul>
-        {/* Loop through each question in the results array */}
-        {questions.results.map((item, index) => {
-          // Combine the correct answer and incorrect answers into one array
-          const allAnswers = shuffleArray([
-            item.correct_answer,
-            ...item.incorrect_answers,
-          ]);
-
-          return (
-            // Each question is wrapped in a <li> element (semantically correct inside <ul>)
-            <li key={item.question}>
-              {/* Display the question text.
-                  'dangerouslySetInnerHTML' is used to decode HTML entities (like &quot;, &amp;, etc.) */}
-              <p dangerouslySetInnerHTML={{ __html: item.question }} />
-
-              {/* Map through the shuffled answer options and render radio buttons */}
-              {allAnswers.map((answer) => (
-                <div key={answer}>
-                  {/* Each input's id and name are made unique by including the question index.
-                      This ensures each question is a separate radio group */}
+        {questions.results.map((item, index) => (
+          <li key={index}>
+            <p dangerouslySetInnerHTML={{ __html: item.question }} />
+            {item.shuffledAnswers.map((answer) => {
+              const id = `${index}-${answer}`;
+              return (
+                <div key={id}>
                   <input
                     type="radio"
-                    id={`${index}-${answer}`} // Unique ID for label association
-                    name={`question-${index}`} // Grouping all radios for this question
-                    value={answer} // Value submitted
+                    id={id}
+                    name={`question-${index}`}
+                    value={answer}
                   />
-                  {/* Use 'dangerouslySetInnerHTML' again to decode answer text if needed */}
                   <label
-                    htmlFor={`${index}-${answer}`}
+                    htmlFor={id}
                     dangerouslySetInnerHTML={{ __html: answer }}
                   />
                 </div>
-              ))}
-            </li>
-          );
-        })}
+              );
+            })}
+          </li>
+        ))}
       </ul>
-    </div>
+    </form>
   );
 };
 
