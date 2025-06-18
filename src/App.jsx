@@ -87,6 +87,7 @@ function App() {
                 required
                 id="name"
                 type="text"
+                value={inputData.userName}
               />
             </label>
             <select
@@ -118,7 +119,12 @@ function App() {
         </>
       ) : showResults ? (
         // ✅ Show results after user submits answers
-        <Results questions={questions} userAnswers={userAnswers} />
+        <Results
+          setIsSubmitted={setIsSubmitted}
+          setShowResults={setShowResults}
+          questions={questions}
+          userAnswers={userAnswers}
+        />
       ) : (
         // Show the questions if quiz has started
         <QuestionForm

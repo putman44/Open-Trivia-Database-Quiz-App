@@ -1,6 +1,11 @@
 import { decodeHtml } from "../utils/functions";
 
-const Results = ({ questions, userAnswers }) => {
+const Results = ({
+  questions,
+  userAnswers,
+  setIsSubmitted,
+  setShowResults,
+}) => {
   return (
     <div>
       <h2>
@@ -21,15 +26,19 @@ const Results = ({ questions, userAnswers }) => {
               const isSelected = userAnswers[i] === answer;
               const isCorrect = answer === q.correct_answer;
 
-              // Apply color only to the one the user chose
-              const color = isSelected
-                ? isCorrect
+              const style = {
+                margin: "4px 0",
+                color: isCorrect // correct gets green
                   ? "green"
-                  : "red" // ✅ chosen AND correct : ❌ chosen AND wrong
-                : "inherit";
+                  : isSelected // wrong + selected gets red
+                  ? "red"
+                  : "inherit",
+                fontWeight: isCorrect ? "bold" : "normal", // make correct bold too
+              };
 
               return (
-                <p key={answer} style={{ color, margin: "4px 0" }}>
+                <p key={answer} style={style}>
+                  {isCorrect ? "✔️ " : isSelected ? "❌ " : ""}
                   {decodeHtml(answer)}
                 </p>
               );
@@ -37,6 +46,14 @@ const Results = ({ questions, userAnswers }) => {
           </li>
         ))}
       </ul>
+      <button
+        onClick={() => {
+          setShowResults(false);
+          setIsSubmitted(false);
+        }}
+      >
+        Restart
+      </button>
     </div>
   );
 };

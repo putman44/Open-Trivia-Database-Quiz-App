@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { decodeHtml } from "../utils/functions";
 
 const QuestionForm = ({ questions, setUserAnswers, onComplete }) => {
