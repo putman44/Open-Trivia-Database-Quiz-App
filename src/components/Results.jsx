@@ -2,6 +2,7 @@ import { decodeHtml } from "../utils/functions";
 import styles from "./Results.module.css";
 
 const Results = ({
+  userName,
   questions,
   userAnswers,
   setIsSubmitted,
@@ -10,7 +11,7 @@ const Results = ({
   return (
     <div>
       <h2>
-        You scored&nbsp;
+        Congrats {userName} you scored&nbsp;
         {questions.results.reduce(
           (sum, q, i) => (userAnswers[i] === q.correct_answer ? sum + 1 : sum),
           0
@@ -20,27 +21,30 @@ const Results = ({
 
       <ul className={styles.ul}>
         {questions.results.map((q, i) => (
-          <li key={i}>
+          <li className={styles.questionContainer} key={i}>
             <p>{decodeHtml(q.question)}</p>
+            <p className={styles.userAnswer}>
+              Your answer was <span>{userAnswers[i]}</span>
+            </p>
             <div className={styles.answers}>
               {q.shuffledAnswers.map((answer) => {
                 const isSelected = userAnswers[i] === answer;
                 const isCorrect = answer === q.correct_answer;
 
-                const style = {
-                  color: isCorrect // correct gets green
-                    ? "green"
-                    : isSelected // wrong + selected gets red
-                    ? "red"
-                    : "inherit",
-                  fontWeight: isCorrect ? "bold" : "normal", // make correct bold too
-                };
-
                 return (
-                  <span className={style.answer} key={answer} style={style}>
-                    {isCorrect ? "✔️ " : isSelected ? "❌ " : ""}
-                    {decodeHtml(answer)}
-                  </span>
+                  <>
+                    <span
+                      className={`${styles.answer} ${
+                        isCorrect
+                          ? styles.isCorrect
+                          : isSelected && styles.isIncorrect
+                      }`}
+                      key={answer}
+                    >
+                      {isCorrect ? "✔️ " : isSelected ? "❌ " : ""}
+                      {decodeHtml(answer)}
+                    </span>
+                  </>
                 );
               })}
             </div>

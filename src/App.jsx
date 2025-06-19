@@ -80,7 +80,7 @@ function App() {
         // Show the form if quiz hasn't started yet
         <>
           <h1>Welcome to the Trivia Quiz App</h1>
-          <form onSubmit={handleSubmit} action="">
+          <form id="form" onSubmit={handleSubmit} action="">
             <label id="name" htmlFor="name">
               Enter your name
               <input
@@ -126,6 +126,7 @@ function App() {
       ) : showResults ? (
         // ✅ Show results after user submits answers
         <Results
+          userName={inputData.userName}
           setIsSubmitted={setIsSubmitted}
           setShowResults={setShowResults}
           questions={questions}
@@ -134,6 +135,7 @@ function App() {
       ) : (
         // Show the questions if quiz has started
         <QuestionForm
+          userAnswers={userAnswers}
           onComplete={() => setShowResults(true)}
           setUserAnswers={setUserAnswers}
           questions={questions}

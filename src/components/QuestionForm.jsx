@@ -1,7 +1,12 @@
 import { decodeHtml } from "../utils/functions";
 import styles from "./QuestionForm.module.css";
 
-const QuestionForm = ({ questions, setUserAnswers, onComplete }) => {
+const QuestionForm = ({
+  questions,
+  setUserAnswers,
+  onComplete,
+  userAnswers,
+}) => {
   const handleSelectAnswer = (questionIndex, selectedAnswer) => {
     setUserAnswers((prev) => ({
       ...prev,
@@ -18,13 +23,19 @@ const QuestionForm = ({ questions, setUserAnswers, onComplete }) => {
     <form className={styles.form} onSubmit={handleSubmit}>
       <ul className={styles.ul}>
         {questions.results.map((item, index) => (
-          <li key={index}>
+          <li className={styles.questionContainer} key={index}>
             <p>{decodeHtml(item.question)}</p>
             <div className={styles.answers}>
               {item.shuffledAnswers.map((answer) => {
                 const id = `${index}-${answer}`;
+                const isSelected = userAnswers[index] === answer;
                 return (
-                  <div className={styles.answer} key={id}>
+                  <div
+                    className={`${styles.answer} ${
+                      isSelected ? styles.selectedAnswer : ""
+                    }`}
+                    key={id}
+                  >
                     <input
                       required
                       type="radio"
@@ -41,7 +52,9 @@ const QuestionForm = ({ questions, setUserAnswers, onComplete }) => {
           </li>
         ))}
       </ul>
-      <button type="submit">Submit</button>
+      <button className={styles.button} type="submit">
+        Submit
+      </button>
     </form>
   );
 };

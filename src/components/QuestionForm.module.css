@@ -4,15 +4,38 @@
   padding: 0;
 }
 
+.questionContainer {
+  background-color: #2c2c54;
+
+  margin: 10px auto;
+  padding: 1rem;
+  width: 90%;
+  border-radius: 20px;
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
 .answers {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: flex-start;
+  grid-template-columns: 45% 45%;
+  justify-content: space-evenly;
 }
 
 .answer {
   display: flex;
   gap: 10px;
+  background-color: #a40e4c;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+.selectedAnswer {
+  background: #82cc6f;
+  color: #fff;
+  border-radius: 6px;
+  transition: background 0.2s;
 }
 
 .answer label {
@@ -24,4 +47,8 @@
 
 .form {
   width: 100%;
+}
+
+.button {
+  margin-top: 10px;
 }
