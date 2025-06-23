@@ -8,15 +8,26 @@ const Results = ({
   setIsSubmitted,
   setShowResults,
 }) => {
+  const score = questions.results.reduce(
+    (sum, q, i) => (userAnswers[i] === q.correct_answer ? sum + 1 : sum),
+    0
+  );
+
+  let message;
+
+  if (score < 4) {
+    message = "Ouch, ";
+  } else if (score < 8) {
+    message = "Not bad, ";
+  } else {
+    message = "WHOA ";
+  }
+
   return (
     <div>
       <h2>
-        Congrats {userName} you scored&nbsp;
-        {questions.results.reduce(
-          (sum, q, i) => (userAnswers[i] === q.correct_answer ? sum + 1 : sum),
-          0
-        )}
-        &nbsp;/ {questions.results.length}
+        {message} {userName} you scored {score}&nbsp;/{" "}
+        {questions.results.length}
       </h2>
 
       <ul className={styles.ul}>
@@ -24,7 +35,7 @@ const Results = ({
           <li className={styles.questionContainer} key={i}>
             <p>{decodeHtml(q.question)}</p>
             <p className={styles.userAnswer}>
-              Your answer was <span>{userAnswers[i]}</span>
+              Your answer was <span>{decodeHtml(userAnswers[i])}</span>
             </p>
             <div className={styles.answers}>
               {q.shuffledAnswers.map((answer) => {
@@ -32,19 +43,17 @@ const Results = ({
                 const isCorrect = answer === q.correct_answer;
 
                 return (
-                  <>
-                    <span
-                      className={`${styles.answer} ${
-                        isCorrect
-                          ? styles.isCorrect
-                          : isSelected && styles.isIncorrect
-                      }`}
-                      key={answer}
-                    >
-                      {isCorrect ? "✔️ " : isSelected ? "❌ " : ""}
-                      {decodeHtml(answer)}
-                    </span>
-                  </>
+                  <span
+                    className={`${styles.answer} ${
+                      isCorrect
+                        ? styles.isCorrect
+                        : isSelected && styles.isIncorrect
+                    }`}
+                    key={answer}
+                  >
+                    {isCorrect ? "✔️ " : isSelected ? "❌ " : ""}
+                    {decodeHtml(answer)}
+                  </span>
                 );
               })}
             </div>

@@ -35,9 +35,15 @@ p {
 
 .answers {
   display: grid;
-  grid-template-columns: 45% 45%;
-  grid-template-rows: auto;
+  grid-template-columns: repeat(2, 45%);
   justify-content: space-evenly;
+  gap: 0.5rem;
+}
+
+@media (max-width: 500px) {
+  .answers {
+    grid-template-columns: 100%;
+  }
 }
 
 .isCorrect {

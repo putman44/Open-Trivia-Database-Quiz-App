@@ -3,12 +3,11 @@ import "./App.css";
 import { getQuestions, getSessionToken } from "./utils/TriviaApi";
 import QuestionForm from "./components/QuestionForm";
 import Results from "./components/Results";
-
-// Utility function to shuffle an array (Fisher-Yates-style randomness)
-const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
+import Form from "./components/Form";
+import { shuffleArray } from "./utils/functions";
 
 function App() {
-  const [categoryData, setCategoryData] = useState();
+  const [categoryData, setCategoryData] = useState({ trivia_categories: [] });
   const [inputData, setInputData] = useState({
     userName: "",
     selectedCategory: 9,
@@ -41,34 +40,25 @@ function App() {
     setIsSubmitted(true);
   };
 
-  const handleNameChange = (event) => {
+  const handleInputChange = ({ target }) => {
+    const { name, value } = target;
     setInputData((prev) => ({
       ...prev,
-      userName: event.target.value,
-    }));
-  };
-
-  const handleCategoryChange = (event) => {
-    setInputData((prev) => ({
-      ...prev,
-      selectedCategory: event.target.value,
-    }));
-  };
-
-  const handleDifficultyChange = (event) => {
-    setInputData((prev) => ({
-      ...prev,
-      difficulty: event.target.value,
+      [name]: value,
     }));
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("https://opentdb.com/api_category.php");
-
-      const data = await response.json();
-
-      setCategoryData(data);
+      try {
+        const response = await fetch("https://opentdb.com/api_category.php");
+        if (!response.ok) throw new Error("Failed to fetch categories.");
+        const data = await response.json();
+        setCategoryData(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+      }
     };
     getSessionToken();
     fetchData();
@@ -77,52 +67,12 @@ function App() {
   return (
     <>
       {!isSubmitted ? (
-        // Show the form if quiz hasn't started yet
-        <>
-          <h1>Welcome to the Trivia Quiz App</h1>
-          <form id="form" onSubmit={handleSubmit} action="">
-            <label id="name" htmlFor="name">
-              Enter your name
-              <input
-                onChange={handleNameChange}
-                required
-                id="name"
-                type="text"
-                value={inputData.userName}
-              />
-            </label>
-            <label htmlFor="">Choose Category</label>
-            <select
-              required
-              onChange={handleCategoryChange}
-              name="filter"
-              id="filter"
-            >
-              {categoryData &&
-                categoryData.trivia_categories &&
-                categoryData.trivia_categories.map((category) => (
-                  <>
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  </>
-                ))}
-            </select>
-            <label htmlFor="">Choose Difficulty</label>
-
-            <select
-              onChange={handleDifficultyChange}
-              required
-              name="difficulty"
-              id="difficulty"
-            >
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
-            <button type="submit">Submit</button>
-          </form>
-        </>
+        <Form
+          onSubmit={handleSubmit}
+          inputData={inputData}
+          onInputChange={handleInputChange}
+          categories={categoryData.trivia_categories}
+        />
       ) : showResults ? (
         // ✅ Show results after user submits answers
         <Results
