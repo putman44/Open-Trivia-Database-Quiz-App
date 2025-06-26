@@ -57,7 +57,6 @@ function App() {
         setCategoryData(data);
       } catch (error) {
         setError(error.message);
-      } finally {
       }
     };
     getSessionToken();
