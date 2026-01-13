@@ -5,7 +5,7 @@
 }
 
 .questionContainer {
-  background-color: #2c2c54;
+  background-color: #003049;
   margin: 10px auto;
   padding: 1rem;
   width: 90%;
@@ -17,7 +17,8 @@ p {
 }
 
 .userAnswer span {
-  background-color: #a40e4c;
+  background-color: #eae2b7;
+  color: #003049;
   padding: 1%;
   border-radius: 10px;
 }
@@ -25,7 +26,8 @@ p {
 .answer {
   display: flex;
   gap: 10px;
-  background-color: #a40e4c;
+  background-color: #eae2b7;
+  color: #003049;
   margin-bottom: 10px;
   border-radius: 15px;
   width: 100%;
@@ -48,14 +50,14 @@ p {
 
 .isCorrect {
   background: #82cc6f;
-  color: #fff;
+  color: #003049;
   border-radius: 6px;
   transition: background 0.2s;
 }
 
 .isIncorrect {
-  background: rgb(239, 70, 70);
-  color: #fff;
+  background: #fc3737;
+  color: #003049;
   border-radius: 6px;
   transition: background 0.2s;
 }
@@ -66,4 +68,10 @@ p {
 
 .button {
   margin-top: 10px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }

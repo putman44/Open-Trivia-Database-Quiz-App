@@ -8,10 +8,8 @@ const QuestionForm = ({
   userAnswers,
 }) => {
   const handleSelectAnswer = (questionIndex, selectedAnswer) => {
-    setUserAnswers((prev) => ({
-      ...prev,
-      [questionIndex]: selectedAnswer,
-    }));
+    const newAnswers = { ...userAnswers, [questionIndex]: selectedAnswer };
+    setUserAnswers(newAnswers); // directly pass the full updated object
   };
 
   const handleSubmit = (event) => {

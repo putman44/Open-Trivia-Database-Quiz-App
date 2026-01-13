@@ -5,7 +5,7 @@
 }
 
 .questionContainer {
-  background-color: #2c2c54;
+  background-color: #003049;
 
   margin: 10px auto;
   padding: 1rem;
@@ -19,6 +19,7 @@ p {
 
 .answers {
   display: grid;
+  color: #003049;
   grid-template-columns: 45% 45%;
   justify-content: space-evenly;
 }
@@ -26,7 +27,7 @@ p {
 .answer {
   display: flex;
   gap: 10px;
-  background-color: #a40e4c;
+  background-color: #eae2b7;
   margin-bottom: 10px;
   border-radius: 15px;
 }
@@ -34,7 +35,7 @@ p {
 .selectedAnswer {
   background: #82cc6f;
   color: #fff;
-  border-radius: 6px;
+  border-radius: 15px;
   transition: background 0.2s;
 }
 
@@ -43,6 +44,7 @@ p {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding: 2px;
 }
 
 .form {

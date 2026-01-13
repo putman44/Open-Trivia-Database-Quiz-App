@@ -9,12 +9,13 @@ const Form = ({ onSubmit, inputData, onInputChange, categories }) => {
     ));
 
   return (
-    <>
+    <div className={styles.formContainer}>
       <h1>Welcome to the Trivia Quiz App</h1>
       <form className={styles.form} onSubmit={onSubmit}>
         <label className={styles.label} htmlFor="name">
           Enter your name
           <input
+            className={styles.input}
             onChange={onInputChange}
             required
             id="name"
@@ -56,7 +57,7 @@ const Form = ({ onSubmit, inputData, onInputChange, categories }) => {
 
         <button type="submit">Submit</button>
       </form>
-    </>
+    </div>
   );
 };
 

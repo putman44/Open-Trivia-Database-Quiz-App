@@ -3,6 +3,14 @@ h1 {
   margin-bottom: 20px;
 }
 
+.formContainer {
+  text-align: center;
+  background-color: #003049;
+  border-radius: 20px;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
 .label {
   display: flex;
   flex-direction: column;
@@ -16,7 +24,8 @@ h1 {
   height: 30px;
   border-radius: 15px;
   text-align: center;
-  background-color: #2c2c54;
+  background-color: #eae2b7;
+  color: #003049;
   width: 100%;
 }
 
@@ -24,12 +33,14 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 1000px #2c2c54 inset !important;
+  -webkit-box-shadow: 0 0 0 1000px #eae2b7 inset !important;
+  -webkit-text-fill-color: #003049 !important;
 }
 
 .label input {
-  background-color: #2c2c54;
   text-align: center;
+  background-color: #eae2b7;
+
   height: 30px;
   font-size: medium;
   width: 100%;
@@ -37,6 +48,7 @@ input:-webkit-autofill:active {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   border-radius: 15px;
+  color: #003049;
 }
 
 .form {
