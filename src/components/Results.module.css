@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+.resultsContainer {
+  text-align: center;
+}
+
 .questionContainer {
   background-color: #003049;
   margin: 10px auto;
@@ -51,14 +55,14 @@ p {
 .isCorrect {
   background: #82cc6f;
   color: #003049;
-  border-radius: 6px;
+  border-radius: 15px;
   transition: background 0.2s;
 }
 
 .isIncorrect {
   background: #fc3737;
   color: #003049;
-  border-radius: 6px;
+  border-radius: 15px;
   transition: background 0.2s;
 }
 
@@ -74,4 +78,5 @@ p {
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-bottom: 25px;
 }

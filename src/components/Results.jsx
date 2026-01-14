@@ -23,7 +23,7 @@ const Results = ({ userName, questions, userAnswers, onRestart, goAgain }) => {
   }
 
   return (
-    <div>
+    <div className={styles.resultsContainer}>
       <h2>
         {message} {userName || "Player"} you scored {score} /{" "}
         {questions.results.length}
@@ -38,7 +38,7 @@ const Results = ({ userName, questions, userAnswers, onRestart, goAgain }) => {
             </p>
             <p className={styles.userAnswer}>
               The correct answer was{" "}
-              <span>{questions.results[i].correct_answer}</span>
+              <span>{decodeHtml(questions.results[i].correct_answer)}</span>
             </p>
             <div className={styles.answers}>
               {q.shuffledAnswers.map((answer) => {

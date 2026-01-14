@@ -1,4 +1,8 @@
 .loading_spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   --loading-spinner-size: 50px;
 
   width: var(--loading-spinner-size);
