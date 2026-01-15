@@ -52,7 +52,7 @@ const Results = ({ userName, questions, userAnswers, onRestart, goAgain }) => {
 
       <div className={styles.buttonContainer}>
         <button className={styles.button} onClick={onRestart}>
-          Restart
+          Reset
         </button>
         <button className={styles.button} onClick={goAgain}>
           Go Again!
