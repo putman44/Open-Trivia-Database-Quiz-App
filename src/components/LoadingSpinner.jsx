@@ -1,17 +1,18 @@
 import styles from "./LoadingSpinner.module.css";
 
 const LoadingSpinner = ({ color = "red", size = "small" }) => {
-  const sizeClass =
-    size === "small"
-      ? styles.loading_spinnerSmall
-      : size === "medium"
-      ? styles.loading_spinnerMedium
-      : styles.loading_spinnerLarge;
+  const sizeClassMap = {
+    small: styles.loadingSpinnerSmall,
+    medium: styles.loadingSpinnerMedium,
+    large: styles.loadingSpinnerLarge,
+  };
+
+  const sizeClass = sizeClassMap[size] || styles.loadingSpinnerSmall;
 
   return (
     <div
       style={{ borderTopColor: color }}
-      className={`${styles.loading_spinner} ${sizeClass}`}
+      className={`${styles.loadingSpinner} ${sizeClass}`}
     />
   );
 };

@@ -7,6 +7,7 @@ import { shuffleArray } from "./utils/functions";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { useReducer } from "react";
 import quizReducer from "./utils/quizReducer";
+import ErrorMessage from "./components/ErrorMessage";
 
 function App() {
   const savedInputData = JSON.parse(localStorage.getItem("quizInputData")) || {
@@ -65,31 +66,53 @@ function App() {
     localStorage.setItem("quizInputData", JSON.stringify(inputData));
   }, [inputData]);
 
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("https://opentdb.com/api_category.php");
+      if (!response.ok) throw new Error("Failed to fetch categories.");
+      const data = await response.json();
+      dispatch({ type: "SET_CATEGORIES", payload: data.trivia_categories });
+    } catch (error) {
+      dispatch({ type: "FETCH_ERROR", payload: "Failed to fetch categories." });
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
+    const init = async () => {
       try {
-        const response = await fetch("https://opentdb.com/api_category.php");
-        if (!response.ok) throw new Error("Failed to fetch categories.");
-        const data = await response.json();
-        dispatch({ type: "SET_CATEGORIES", payload: data.trivia_categories });
-      } catch (error) {
-        dispatch({ type: "FETCH_ERROR", payload: error.message });
+        await getSessionToken();
+        await fetchCategories();
+      } catch (err) {
+        dispatch({
+          type: "FETCH_ERROR",
+          payload: "Failed to initialize session.",
+        });
       }
     };
-    getSessionToken();
-    fetchData();
+    init();
   }, []);
 
   if (status === "loading") {
-    return <LoadingSpinner color="#f77f00" size="large" />;
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <LoadingSpinner color="#f77f00" size="large" />
+      </div>
+    );
   }
-
   if (status === "error") {
     return (
-      <div className="error">
-        <p>{error}</p>
-        <button onClick={() => dispatch({ type: "RESET" })}>Try again</button>
-      </div>
+      <ErrorMessage
+        error={error}
+        onRestart={() => dispatch({ type: "RESET" })}
+        fetchCategories={fetchCategories}
+      />
     );
   }
 

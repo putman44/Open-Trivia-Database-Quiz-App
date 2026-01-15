@@ -13,6 +13,7 @@
   margin: 10px auto;
   padding: 1rem;
   width: 90%;
+  max-width: 800px;
   border-radius: 20px;
 }
 
@@ -20,58 +21,27 @@ p {
   margin: 0 0 1rem 0;
 }
 
-.userAnswer span {
-  background-color: #eae2b7;
-  color: #003049;
-  padding: 1%;
-  border-radius: 10px;
-}
-
-.answer {
-  display: flex;
-  gap: 10px;
-  background-color: #eae2b7;
-  color: #003049;
-  margin-bottom: 10px;
-  border-radius: 15px;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.answers {
-  display: grid;
-  grid-template-columns: repeat(2, 45%);
-  justify-content: space-evenly;
-  gap: 0.5rem;
-}
-
-@media (max-width: 500px) {
-  .answers {
-    grid-template-columns: 100%;
-  }
-}
-
 .isCorrect {
-  background: #82cc6f;
+  background-color: #82cc6f;
   color: #003049;
-  border-radius: 15px;
+  padding: 5px;
+  border-radius: 10px;
   transition: background 0.2s;
 }
 
 .isIncorrect {
-  background: #fc3737;
+  background-color: #fc3737;
   color: #003049;
-  border-radius: 15px;
+  padding: 5px;
+  border-radius: 10px;
   transition: background 0.2s;
 }
 
-.form {
-  width: 100%;
-}
-
-.button {
-  margin-top: 10px;
+.correctAnswer {
+  background-color: #eae2b7;
+  color: #003049;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .buttonContainer {
@@ -79,4 +49,21 @@ p {
   justify-content: center;
   gap: 10px;
   margin-bottom: 25px;
+}
+
+.button {
+  margin-top: 10px;
+  border-radius: 15px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #eae2b7;
+  color: #003049;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.button:hover {
+  border-color: #82cc6f;
 }

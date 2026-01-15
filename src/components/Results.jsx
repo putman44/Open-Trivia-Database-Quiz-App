@@ -12,15 +12,7 @@ const Results = ({ userName, questions, userAnswers, onRestart, goAgain }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  let message;
-
-  if (score < 4) {
-    message = "Ouch, ";
-  } else if (score < 8) {
-    message = "Not bad, ";
-  } else {
-    message = "WHOA ";
-  }
+  const message = score < 4 ? "Ouch, " : score < 8 ? "Not bad, " : "WHOA ";
 
   return (
     <div className={styles.resultsContainer}>
@@ -32,37 +24,32 @@ const Results = ({ userName, questions, userAnswers, onRestart, goAgain }) => {
       <ul className={styles.ul}>
         {questions.results.map((q, i) => (
           <li className={styles.questionContainer} key={i}>
-            <p>{decodeHtml(q.question)}</p>
-            <p className={styles.userAnswer}>
-              Your answer was <span>{decodeHtml(userAnswers[i])}</span>
-            </p>
-            <p className={styles.userAnswer}>
-              The correct answer was{" "}
-              <span>{decodeHtml(questions.results[i].correct_answer)}</span>
-            </p>
-            <div className={styles.answers}>
-              {q.shuffledAnswers.map((answer) => {
-                const isSelected = userAnswers[i] === answer;
-                const isCorrect = answer === q.correct_answer;
+            <p className={styles.question}>{decodeHtml(q.question)}</p>
 
-                return (
-                  <span
-                    className={`${styles.answer} ${
-                      isCorrect
-                        ? styles.isCorrect
-                        : isSelected && styles.isIncorrect
-                    }`}
-                    key={answer}
-                  >
-                    {isCorrect ? "✔️ " : isSelected ? "❌ " : ""}
-                    {decodeHtml(answer)}
-                  </span>
-                );
-              })}
-            </div>
+            <p>
+              {userAnswers[i] === q.correct_answer ? "✅ " : "❌ "}
+              Your answer:{" "}
+              <span
+                className={
+                  userAnswers[i] === q.correct_answer
+                    ? styles.isCorrect
+                    : styles.isIncorrect
+                }
+              >
+                {decodeHtml(userAnswers[i])}
+              </span>
+            </p>
+
+            <p>
+              Correct answer:{" "}
+              <span className={styles.correctAnswer}>
+                {decodeHtml(q.correct_answer)}
+              </span>
+            </p>
           </li>
         ))}
       </ul>
+
       <div className={styles.buttonContainer}>
         <button className={styles.button} onClick={onRestart}>
           Restart
