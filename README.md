@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Trivia Quiz App** is a dynamic, interactive quiz platform built with **React**. Users can select a category and difficulty, answer multiple-choice questions, and view their results at the end. The app demonstrates proficiency with modern React features, including **hooks**, **useReducer for state management**, **contextual state lifting**, **API integration**, and **localStorage persistence**.
+The **Trivia Quiz App** is a dynamic, interactive quiz platform built with **React**. Users can select a category and difficulty, answer multiple-choice questions, and view their results at the end. The app demonstrates proficiency with modern React features, including **hooks**, **useReducer for state management**, **contextual state lifting**,and **API integration**.
 
 ---
 
