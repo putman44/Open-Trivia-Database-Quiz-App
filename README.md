@@ -1,4 +1,4 @@
-# Trivia Quiz App
+# Open Trivia Database Quiz App
 
 ## Overview
 
