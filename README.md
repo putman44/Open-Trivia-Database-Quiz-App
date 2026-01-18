@@ -72,7 +72,7 @@ yarn dev
 - Implemented **state management with `useReducer`** for complex state flows.
 - Integrated **third-party API** for dynamic content.
 - Created a **modular, component-based architecture** (Form, QuestionForm, Results, LoadingSpinner).
-- Applied **user-friendly UX patterns**, including loading indicators, scroll-to-top behavior, and error handling.
+- Applied **user-friendly UX patterns**, including loading indicators and error handling.
 - Demonstrated **data persistence** using `localStorage`.
 - Used **React best practices**, such as lifting state, clean separation of concerns, and declarative rendering.
 
